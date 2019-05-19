@@ -8,7 +8,7 @@ before_install:
   - sudo apt-get update -qq
 
 install:
-  - sudo apt-get -y install qt59base qt59tools qt59websockets g++-5
+  - sudo apt-get -y install qt59base qt59tools qt59websockets libgl1-mesa-dev
   - source /opt/qt*/bin/qt*-env.sh
   - export CXX="g++-5"
   - export CC="gcc-5"
@@ -20,7 +20,7 @@ script:
   - make CXX=$CXX -j$(nproc)
   - export LD_LIBRARY_PATH=
   - sudo make -j$(nproc) install
-  - sudo cp /opt/qt*/include/qmqtt/* /opt/qt*/include/ # FIXME; it is not found there
+  - sudo mv /opt/qt*/include/qmqtt . ; sudo cp -r ./qmqtt/* /opt/qt*/include/ # FIXME; it is not found there
   - cd ..
   - qmake CONFIG+=release PREFIX=/usr
   - make -j$(nproc)
