@@ -17,9 +17,10 @@ script:
   - git clone https://github.com/emqtt/qmqtt
   - cd qmqtt/
   - qmake CONFIG+=release
-  - make CXX=$CXX -j$(nproc) -I/opt/qt*/include/qmqtt/
+  - make CXX=$CXX -j$(nproc)
   - export LD_LIBRARY_PATH=
   - sudo make -j$(nproc) install
+  - cp /opt/qt*/include/qmqtt/* /opt/qt*/include/ # FIXME; it is not found there
   - cd ..
   - qmake CONFIG+=release PREFIX=/usr
   - make -j$(nproc)
